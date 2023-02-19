@@ -2,6 +2,7 @@ pipeline {
 	agent any
     environment {
 		NEW_VERSION = '1.0.0'
+        ADMIN_CREDENTIALS = credentials('admin_user_credentials')
 	}
 	stages {
 		stage("build") {
@@ -28,6 +29,8 @@ pipeline {
 		stage("deploy") {
 			steps {
 				echo 'deploying the applicaiton...'
+                echo "deploying with ${ADMIN_CREDENTIALS}"
+				sh 'printf ${ADMIN_CREDENTIALS}'
 			}
 		}
 	}
